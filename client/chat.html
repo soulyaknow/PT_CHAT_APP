@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mugo Mugo Chat App</title>
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+
+
+</head>
+<body>
+    <div id="messages"></div>
+    <input type="text" id="message" />
+    <button id="send">Send</button>
+
+    
+    <script>
+        const socket = io();
+
+        socket.on("connect", ()=>{
+            console.log("connected");
+        });
+        
+        socket.on("chat message", (message)=>{
+
+            const span = document.createElement("p");
+            span.textContent = message;
+
+            document.querySelector("#messages").appendChild(span);
+        });
+
+        document.querySelector("#send").addEventListener("click", ()=>{
+            const msg = document.querySelector("#message").value;
+
+            
+            socket.emit("chat message", msg);
+        });
+
+
+    </script>   
+</body>
+
+
+</html>

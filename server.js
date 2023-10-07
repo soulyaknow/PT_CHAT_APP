@@ -7,9 +7,13 @@ const server = http.createServer(app);
 const io = socketio(server);
 
 app.use(express.json());
+app.use(express.static("public"));
 
 app.get("/", (req, res) =>{
-    res.sendFile(__dirname + "/client/index.html");
+    res.sendFile(__dirname + "/client/login.html");
+})
+app.get("/register", (req, res) =>{
+    res.sendFile(__dirname + "/client/register.html");
 })
 
 app.post("/chats", (req, res)=>{

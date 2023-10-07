@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register Form | Chat App</title>
+
+    <meta name="author" content="Secret Group">
+    <meta name="keywords" content="Mongo-Mongo Chat Applications">
+    <meta name="description" content="Chat Applications, Mongo-Mongo Chat App">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="public/css/loginStyle.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Helvetica, Georgia, "Times New Roman";
+            font-size: 16px;
+            background-color: #4E59CE;
+        }
+
+        .login-container {
+            width: 28%;
+            margin: auto;
+            background-color: #ffffff;
+            margin-top: 100px;
+            border-radius: 5px;
+        }
+
+        .login-container .login-content {
+            padding: 10px 20px;
+        }
+
+        .login-container .login-content h1 {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        form#main-form .input-area {
+            border-bottom: 1px solid #9C8F7B;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        form#main-form .input-area i {
+            color: #9C8F7B;
+        }
+
+        form#main-form .gender-area {
+            border-bottom: 1px solid #9C8F7B;
+        }
+
+        form#main-form .gender-area select {
+            width: 100%;
+            margin: 20px auto 0 auto;
+            padding: 10px 15px;
+            border: none;
+            outline: none;
+        }
+
+        form#main-form .input-area input[type="text"] {
+            border: 1px solid #000000;
+            padding: 10px 15px;
+            width: 100%;
+            margin: auto;
+            border: none;
+            outline: none;
+        }
+
+        form#main-form .input-area input[type="password"] {
+            border: 1px solid #000000;
+            padding: 10px 15px;
+            width: 100%;
+            margin: auto;
+            border: none;
+            outline: none;
+        }
+
+        form#main-form .input-area input[type="email"] {
+            border: 1px solid #000000;
+            padding: 10px 15px;
+            width: 100%;
+            margin: auto;
+            border: none;
+            outline: none;
+        }
+
+        form#main-form .input-area input[type="text"]::placeholder,
+        form#main-form .input-area input[type="password"]::placeholder,
+        form#main-form .input-area input[type="email"]::placeholder {
+            font-size: 11.5px;
+        }
+
+        form#main-form button#login {
+            background-color: #4E59C3;
+            color: #ffffff;
+            font-size: 12px;
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            width: 100%;
+            margin: 25px auto 15px auto;
+            padding: 10px 15px;
+        }
+        
+        form#main-form button#login:hover {
+            background-color: #000000;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        .login-content span {
+            font-size: 12px;
+            text-align: center;
+            display: block;
+            margin:10px 0 10px 0;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <!-- <input type="color"> -->
+
+    <div class="login-container">
+        <div class="login-content">
+            <h1>Register</h1>
+            <form action="#" method="POST" id="main-form" enctype="application/x-www-form-urlencoded">
+                <div class="input-area">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" id="username" name="username" placeholder="Username">
+                </div>
+                <div class="input-area">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="password" name="password" placeholder="Password">
+                    <i class="fa-solid fa-eye"></i>
+                </div>
+                <div class="input-area">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="text" id="text" name="text" placeholder="Firstname">
+                </div>
+                <div class="input-area">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="text" id="lastname" name="lastname" placeholder="Lastname">
+                </div>
+                <div class="gender-area">
+                    <!-- <i class="fa-solid fa-envelope"></i>
+                    <input type="text" id="lastname" name="lastname" placeholder="Lastname"> -->
+                    <select name="gender" id="gender">
+                        <option value="" hidden selected disabled>Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Others">Others</option>
+                    </select>
+                </div>
+                <button type="submit" id="login" name="login" value="Login">Login Now</button>
+            </form>
+            <span>Already have an account? <a href="register.html">Login now</a></span>
+        </div><!-- End of login-content tag -->
+    </div><!-- ENd of login-container tag -->
+
+</body>
+</html>

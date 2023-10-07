@@ -1,0 +1,39 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Helvetica, Georgia, "Times New Roman";
+    font-size: 16px;
+    background-color: #4E59CE;
+}
+
+.login-container {
+    width: 50%;
+    margin: auto;
+    background-color: #ffffff;
+    margin-top: 150px;
+    border-radius: 5px;
+}
+
+.login-container .login-content {
+    padding: 10px 15px;
+}
+
+.login-container .login-content h1 {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+form#main-form .input-area {
+    border: 1px solid #000000;
+    padding: 10px 15px;
+}
+
+form#main-form .input-area input[type="text"] {
+    border: 1px solid #000000;
+    padding: 10px 15px;
+}

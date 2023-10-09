@@ -3,8 +3,15 @@ const http = require("http");
 const socketio = require("socket.io");
 const app = express();
 const server = http.createServer(app);
-
+const mysql = require("mysql2");
 const io = socketio(server);
+
+const con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "",
+    database: "chat_db"
+});
 
 app.use(express.json());
 app.use(express.static("public"));
@@ -12,11 +19,21 @@ app.use(express.static("public"));
 app.get("/", (req, res) =>{
     res.sendFile(__dirname + "/client/login.html");
 })
-app.get("/register", (req, res) =>{
-    res.sendFile(__dirname + "/client/register.html");
-})
 
-app.post("/chats", (req, res)=>{
+ap.get("/login", (req, res)=> {
+
+    const query = "SELECT * FROM users";
+
+    con.query(query, (err, result) =>{
+        if(!err){
+            return res.status(200).json(result.data);
+            res.sendFile(__dirname + "/client/login.html")
+        }
+        return res.status(500).json({message: "Server errror."});
+    });
+});
+
+app.post("/register", (req, res)=>{
 
     const {username, password, firstname, lastname, gender} = req.body;
 
@@ -33,6 +50,78 @@ app.post("/chats", (req, res)=>{
         return res.status(500).json({message: "Server Error."});
     });
 
+});
+
+//sending message
+app.post("/chats", (req, res)=>{
+
+    const {sender, receiver, message, files} = req.body;
+
+    const query = "INSERT INTO chats(sender, receiver, message, files) VALUES(?, ?, ?, ?)";
+
+    con.query(query, [sender, receiver, message, files], (err, result)=>{
+
+        console.log(result);
+
+        if(!err){
+            return res.status(201).json({message: "Successfully created"});
+        }
+        
+        return res.status(500).json({message: "Server Error."});
+    });
+
+});
+
+//get message
+ap.get("/chats:id", (req, res)=> {
+
+    const query = "SELECT * FROM chats";
+
+    con.query(query, (err, result) =>{
+        if(!err){
+            return res.status(200).json(result);
+        }
+        return res.status(500).json({message: "Server errror."});
+    });
+});
+
+//edit message
+app.put("/chats/:id", (req, res)=>{
+
+    const {message} = req.body;
+    const id = req.params.id;
+
+    const query = "UPDATE chats SET message = ? WHERE product_id = ? ";
+
+    con.query(query, [message,id], (err, result)=>{
+
+        console.log(result);
+        if(!err){
+            return res.status(204).json({message: "Successfully updated."});
+        }
+        return res.status(500).json({message: "Server errror."});
+    });
+});
+
+//delete message
+app.delete("/chats/:id", (req, res) =>{
+    const id = req.params.id;
+
+    const query = "DELETE FROM chats WHERE product_id = ?";
+
+    con.query(query, [id], (err, result)=>{
+        
+        console.log(result);
+
+        if(!err){
+            if(result.affectedRows > 0){
+                return res.status(200).json({message: "Successfully deleted."});
+            }
+            return res.status(404).json({message: "message not found"});
+           
+        }
+        return res.status(500).json({message: "Server errror."});
+    });
 });
 
 io.on("connection", (socket) =>{

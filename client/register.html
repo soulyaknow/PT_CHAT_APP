@@ -43,7 +43,7 @@
             margin-bottom: 15px;
         }
 
-        form#main-form .input-area {
+        form#register-form .input-area {
             border-bottom: 1px solid #9C8F7B;
             padding: 10px 15px;
             display: flex;
@@ -51,15 +51,15 @@
             align-items: center;
         }
 
-        form#main-form .input-area i {
+        form#register-form .input-area i {
             color: #9C8F7B;
         }
 
-        form#main-form .gender-area {
+        form#register-form .gender-area {
             border-bottom: 1px solid #9C8F7B;
         }
 
-        form#main-form .gender-area select {
+        form#register-form .gender-area select {
             width: 100%;
             margin: 20px auto 0 auto;
             padding: 10px 15px;
@@ -67,7 +67,7 @@
             outline: none;
         }
 
-        form#main-form .input-area input[type="text"] {
+        form#register-form .input-area input[type="text"] {
             border: 1px solid #000000;
             padding: 10px 15px;
             width: 100%;
@@ -76,7 +76,7 @@
             outline: none;
         }
 
-        form#main-form .input-area input[type="password"] {
+        form#register-form .input-area input[type="password"] {
             border: 1px solid #000000;
             padding: 10px 15px;
             width: 100%;
@@ -85,7 +85,7 @@
             outline: none;
         }
 
-        form#main-form .input-area input[type="email"] {
+        form#register-form .input-area input[type="email"] {
             border: 1px solid #000000;
             padding: 10px 15px;
             width: 100%;
@@ -94,13 +94,13 @@
             outline: none;
         }
 
-        form#main-form .input-area input[type="text"]::placeholder,
-        form#main-form .input-area input[type="password"]::placeholder,
-        form#main-form .input-area input[type="email"]::placeholder {
+        form#register-form .input-area input[type="text"]::placeholder,
+        form#register-form .input-area input[type="password"]::placeholder,
+        form#register-form .input-area input[type="email"]::placeholder {
             font-size: 11.5px;
         }
 
-        form#main-form button#login {
+        form#register-form button#login {
             background-color: #4E59C3;
             color: #ffffff;
             font-size: 12px;
@@ -112,7 +112,7 @@
             padding: 10px 15px;
         }
         
-        form#main-form button#login:hover {
+        form#register-form button#login:hover {
             background-color: #000000;
             color: #ffffff;
             cursor: pointer;
@@ -134,7 +134,7 @@
     <div class="login-container">
         <div class="login-content">
             <h1>Register</h1>
-            <form action="#" method="POST" id="main-form" enctype="application/x-www-form-urlencoded">
+            <form id="register-form">
                 <div class="input-area">
                     <i class="fa-solid fa-user"></i>
                     <input type="text" id="username" name="username" placeholder="Username">
@@ -146,7 +146,7 @@
                 </div>
                 <div class="input-area">
                     <i class="fa-solid fa-envelope"></i>
-                    <input type="text" id="text" name="text" placeholder="Firstname">
+                    <input type="text" id="firstname" name="text" placeholder="Firstname">
                 </div>
                 <div class="input-area">
                     <i class="fa-solid fa-envelope"></i>
@@ -162,11 +162,49 @@
                         <option value="Others">Others</option>
                     </select>
                 </div>
-                <button type="submit" id="login" name="login" value="Login">Login Now</button>
+                <button type="submit" id="login">Register</button>
             </form>
-            <span>Already have an account? <a href="register.html">Login now</a></span>
+            <span>Already have an account? <a href="/">Login now</a></span>
         </div><!-- End of login-content tag -->
     </div><!-- ENd of login-container tag -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const registerForm = document.getElementById("register-form");
 
+    registerForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+        const firstname = document.getElementById("firstname").value;
+        const lastname = document.getElementById("lastname").value;
+        const gender = document.getElementById("gender").value;
+
+    const userData = {username,password,firstname,lastname,gender,};
+    
+    fetch("/register", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        if (data.message == 200) {
+            alert("User registered successfully!");
+            window.location="/";
+        } 
+        else {
+            alert("Registration failed. Please try again.");
+        }
+    })
+    .catch((error) => {
+        console.error("Error:", error);
+        alert(error);
+    });
+});
+});
+</script>
 </body>
 </html>

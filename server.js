@@ -16,18 +16,31 @@ const con = mysql.createConnection({
 app.use(express.json());
 app.use(express.static("public"));
 
+//routes
+
 app.get("/", (req, res) =>{
     res.sendFile(__dirname + "/client/login.html");
 })
 
-ap.get("/login", (req, res)=> {
+app.get("/reg", (req, res) =>{
+    res.sendFile(__dirname + "/client/register.html");
+})
 
-    const query = "SELECT * FROM users";
+app.get("/landing", (req, res) =>{
+    res.sendFile(__dirname + "/client/landing.html");
+})
 
-    con.query(query, (err, result) =>{
+//api
+
+app.post("/login", (req, res)=> {
+
+    const {username, password} = req.body;
+
+    const query = "SELECT * FROM users WHERE username = ? AND password = ?";
+
+    con.query(query, [username, password], (err, result) =>{
         if(!err){
-            return res.status(200).json(result.data);
-            res.sendFile(__dirname + "/client/login.html")
+            return res.status(200).json({login: 1});
         }
         return res.status(500).json({message: "Server errror."});
     });
@@ -44,7 +57,7 @@ app.post("/register", (req, res)=>{
         console.log(result);
 
         if(!err){
-            return res.status(201).json({message: "Successfully created"});
+            return res.status(201).json({message: 200});
         }
         
         return res.status(500).json({message: "Server Error."});
@@ -73,7 +86,7 @@ app.post("/chats", (req, res)=>{
 });
 
 //get message
-ap.get("/chats:id", (req, res)=> {
+app.get("/chats:id", (req, res)=> {
 
     const query = "SELECT * FROM chats";
 

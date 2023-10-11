@@ -43,7 +43,7 @@
             margin-bottom: 15px;
         }
 
-        form#main-form .input-area {
+        form#login-form .input-area {
             border-bottom: 1px solid #9C8F7B;;
             padding: 10px 15px;
             display: flex;
@@ -51,11 +51,11 @@
             align-items: center;
         }
 
-        form#main-form .input-area i {
+        form#login-form .input-area i {
             color: #9C8F7B;
         }
 
-        form#main-form .input-area input[type="text"] {
+        form#login-form .input-area input[type="text"] {
             border: 1px solid #000000;
             padding: 10px 15px;
             width: 100%;
@@ -64,7 +64,7 @@
             outline: none;
         }
 
-        form#main-form .input-area input[type="password"] {
+        form#login-form .input-area input[type="password"] {
             border: 1px solid #000000;
             padding: 10px 15px;
             width: 100%;
@@ -73,12 +73,12 @@
             outline: none;
         }
 
-        form#main-form .input-area input[type="text"]::placeholder,
-        form#main-form .input-area input[type="password"]::placeholder {
+        form#login-form .input-area input[type="text"]::placeholder,
+        form#login-form .input-area input[type="password"]::placeholder {
             font-size: 11.5px;
         }
 
-        form#main-form button#login {
+        form#login-form button#login {
             background-color: #4E59C3;
             color: #ffffff;
             font-size: 12px;
@@ -90,7 +90,7 @@
             padding: 10px 15px;
         }
         
-        form#main-form button#login:hover {
+        form#login-form button#login:hover {
             background-color: #000000;
             color: #ffffff;
             cursor: pointer;
@@ -106,28 +106,61 @@
     </style>
 </head>
 <body>
-
-    <!-- <input type="color"> -->
-
     <div class="login-container">
         <div class="login-content">
             <h1>Login</h1>
-            <form action="#" method="POST" id="main-form" enctype="application/x-www-form-urlencoded">
+            <form id="login-form">
                 <div class="input-area">
                     <i class="fa-solid fa-envelope"></i>
-                    <input type="text" id="email" name="email" placeholder="Enter your email">
+                    <input type="text" id="username" name="username" placeholder="Enter your username">
                     <i class="fa-solid fa-eye"></i>
                 </div>
                 <div class="input-area">
                     <i class="fa-solid fa-lock"></i>
-                    <input type="password" id="password" name="password" placeholder="Conform password">
+                    <input type="password" id="password" name="password" placeholder="Confirm password">
                     <i class="fa-solid fa-eye"></i>
                 </div>
-                <button type="submit" id="login" name="login" value="Login">Login Now</button>
+                <button type="submit" id="login">Login Now</button>
             </form>
-            <span>Don't have an account? <a href="register.html">Signup now</a></span>
+            <span>Don't have an account? <a href="/reg">Signup now</a></span>
         </div><!-- End of login-content tag -->
     </div><!-- ENd of login-container tag -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const loginForm = document.getElementById("login-form");
 
+    loginForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+
+    const userData = {username,password};
+    
+    fetch("/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        console.log(data);
+        if (data.login == 1) {
+            alert("User Login successfully!");
+            window.location="/landing";
+        } 
+        else {
+            alert("Login failed. Please try again.");
+        }
+    })
+    .catch((error) => {
+        console.error("Error:", error);
+        alert(error);
+    });
+});
+});
+</script>
 </body>
 </html>

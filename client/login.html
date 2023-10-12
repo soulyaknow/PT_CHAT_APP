@@ -135,31 +135,29 @@
         const username = document.getElementById("username").value;
         const password = document.getElementById("password").value;
 
-    const userData = {username,password};
-    
-    fetch("/login", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
-    })
-    .then((response) => response.json())
-    .then((data) => {
-        console.log(data);
-        if (data.login == 1) {
-            alert("User Login successfully!");
-            window.location="/landing";
-        } 
-        else {
-            alert("Login failed. Please try again.");
-        }
-    })
-    .catch((error) => {
-        console.error("Error:", error);
-        alert(error);
+        const userData = { username, password };
+
+        fetch("/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(userData),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.message === "User Login successfully!") {
+                    alert("User Login successfully!");
+                    window.location = "/landing";
+                } else {
+                    alert("Login failed. Please try again.");
+                }
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+                alert("An error occurred. Please try again later.");
+            });
     });
-});
 });
 </script>
 </body>

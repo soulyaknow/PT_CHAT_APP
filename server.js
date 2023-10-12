@@ -4,6 +4,7 @@ const socketio = require("socket.io");
 const app = express();
 const server = http.createServer(app);
 const mysql = require("mysql2");
+const bcrypt = require("bcrypt");
 const io = socketio(server);
 
 const con = mysql.createConnection({
@@ -31,20 +32,30 @@ app.get("/landing", (req, res) =>{
 })
 
 //api
-
-app.post("/login", (req, res)=> {
-
-    const {username, password} = req.body;
-
-    const query = "SELECT * FROM users WHERE username = ? AND password = ?";
-
-    con.query(query, [username, password], (err, result) =>{
-        if(!err){
-            return res.status(200).json({login: 1});
+app.post("/login", (req, res) => {
+    
+    const { username, password } = req.body;
+    const query = "SELECT * FROM users WHERE username = ?";
+    
+    con.query(query, [username], (err, result) => {
+        if (err) {
+            return res.status(500).json({ message: "Server error." });
         }
-        return res.status(500).json({message: "Server errror."});
+
+        if (result.length === 1) {
+            // User found
+            const user = result[0];
+            if(password == user.password){
+                return res.status(200).json({ message: "User Login successfully!" });
+            } else {
+                return res.status(401).json({ message: "Invalid username or password." });
+            }
+        } else {
+            return res.status(401).json({ message: "Invalid username or password." });
+        }
     });
 });
+
 
 app.post("/register", (req, res)=>{
 

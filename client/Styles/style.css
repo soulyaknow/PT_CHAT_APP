@@ -1,0 +1,152 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    }
+
+    body {
+        font-family: Helvetica, Georgia, "Times New Roman";
+        font-size: 16px;
+        background-image: linear-gradient(to right, #B721FF, #45A8FD);
+    }
+
+    .nav-container {
+        width: 100%;
+        margin: auto;
+    }
+
+    .nav-container #main-nav {
+        width: 100%;
+        margin: auto;
+        padding: 10px 15px;
+    }
+
+    #main-nav .main-nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 15px;
+    }
+
+    #main-nav .main-nav-container .logo {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    #main-nav .main-nav-container .logo img {
+        margin-right: 10px;
+        border-radius: 50%;
+    }
+
+    #main-nav .main-nav-container .logo span {
+        font-size: 16px;
+        font-weight: bold;
+        display: block;
+        color: #ffffff;
+    }
+
+    /* PENETRATION TESTING SECTION */
+
+    #main-nav .main-nav-container #nav-links {
+        width: 30%;
+    }
+
+    #main-nav .main-nav-container #nav-links .nav-links-container {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    #main-nav .main-nav-container #nav-links a {
+        display: block;
+        text-decoration: none;
+        color: #ffffff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 15px;
+    }
+
+    #main-nav .main-nav-container #nav-links a:hover {
+        cursor: pointer;
+        font-weight: 700;
+    }
+
+    #main-nav .main-nav-container #nav-links button#logout {
+        border: none;
+        outline: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        display: block;
+        background-color: #000000;
+        color: #ffffff;
+        font-size: 11.5px;
+    }
+
+    #main-nav .main-nav-container #nav-links button#logout:hover {
+        cursor: pointer;
+        background-color: #ffffff;
+        color: #000000;
+    }
+
+    .section-container {
+        width: 100%;
+        margin: auto;
+        overflow: hidden;
+    }
+
+    .section-container #main-section {
+        padding: 10px 15px;
+        margin-top: 150px;
+        color: #ffffff;
+    }
+
+    .section-container #main-section .description,
+    .section-container #main-section .buttons {
+        position: relative;
+        top: 5;
+        left: 10%;
+    }
+
+    .section-container #main-section .description h1 {
+        font-size: 25px;
+        margin-bottom: 10px;
+        font-family: Helvetica, Georgia;
+    }
+
+    .section-container #main-section .description h2 {
+        font-size: 16px;
+        margin-bottom: 15px;
+        font-family: Georgia;
+    }
+
+    .section-container #main-section .description p {
+        font-size: 14px;
+        width: 80%;
+    }
+
+    .section-container #main-section .buttons {
+        margin-top: 50px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 15%;
+    }
+
+    .section-container #main-section .buttons button {
+        border: none;
+        outline: none;
+        border-radius: 5px;
+        padding: 12px 15px;
+        display: block;
+        background-color: #000000;
+        color: #ffffff;
+        font-size: 11.5px;
+    }
+
+    .section-container #main-section .buttons button:hover {
+        cursor: pointer;
+        background-color: #ffffff;
+        color: #000000;
+    }

@@ -16,37 +16,7 @@
 
     
     <script>
-        const socket = io();
-
-        socket.on("connect", ()=>{
-            console.log("connected");
-        });
         
-        // socket.on("chat", (messageObj)=>{
-        //     const {userid, message} = messageObj;
-
-        //     const query = "INSERT INTO chats(userid, message) VALUES(?,?)"
-
-        //     con.query(query,[userid, message], (err, resulty) => {
-        //         if(!err){
-        //             return io.emit("chat", message);
-        //         }
-        //         return io.emit("chat",err);
-        //     })
-        //     const span = document.createElement("p");
-        //     span.textContent = message;
-
-        //     document.querySelector("#messages").appendChild(span);
-        // });
-
-        document.querySelector("#send").addEventListener("click", ()=>{
-            const msg = document.querySelector("#message").value;
-
-            
-            socket.emit("chat message", msg);
-        });
-
-
     </script>   
 </body>
 

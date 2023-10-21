@@ -46,7 +46,7 @@ app.post("/login", (req, res) => {
             // User found
             const user = result[0];
             if(password == user.password){
-                return res.status(200).json({ message: "User Login successfully!", codeNumber: 1 });
+                return res.status(200).json({ message: "User Login successfully!", codeNumber: 1, userID: user.userid });
             } else {
                 return res.status(401).json({ message: "Invalid username or password.", codeNumber: 0 });
             }
@@ -153,6 +153,7 @@ io.on("connection", (socket) =>{
     console.log("connected");
 
     socket.on("chat", (messageObj)=>{
+        
         const {userid, message} = messageObj;
 
         const query = "INSERT INTO chats(userid, message) VALUES(?,?)"

@@ -22,13 +22,22 @@
             console.log("connected");
         });
         
-        socket.on("chat message", (message)=>{
+        // socket.on("chat", (messageObj)=>{
+        //     const {userid, message} = messageObj;
 
-            const span = document.createElement("p");
-            span.textContent = message;
+        //     const query = "INSERT INTO chats(userid, message) VALUES(?,?)"
 
-            document.querySelector("#messages").appendChild(span);
-        });
+        //     con.query(query,[userid, message], (err, resulty) => {
+        //         if(!err){
+        //             return io.emit("chat", message);
+        //         }
+        //         return io.emit("chat",err);
+        //     })
+        //     const span = document.createElement("p");
+        //     span.textContent = message;
+
+        //     document.querySelector("#messages").appendChild(span);
+        // });
 
         document.querySelector("#send").addEventListener("click", ()=>{
             const msg = document.querySelector("#message").value;

@@ -146,7 +146,8 @@
         })
             .then((response) => response.json())
             .then((data) => {
-                if (data.message === "User Login successfully!") {
+                console.log(data.codeNumber);
+                if (data.codeNumber === 1) {
                     alert("User Login successfully!");
                     window.location = "/landing";
                 } else {

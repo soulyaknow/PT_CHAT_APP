@@ -31,6 +31,18 @@ app.get("/landing", (req, res) =>{
     res.sendFile(__dirname + "/client/landing.html");
 })
 
+app.get("/about", (req, res) =>{
+    res.sendFile(__dirname + "/client/about.html");
+})
+
+app.get("/chats", (req, res) =>{
+    res.sendFile(__dirname + "/client/chats.html");
+})
+
+app.get("/test", (req, res) =>{
+    res.sendFile(__dirname + "/client/chat.html");
+})
+
 //api
 app.post("/login", (req, res) => {
     
@@ -46,7 +58,7 @@ app.post("/login", (req, res) => {
             // User found
             const user = result[0];
             if(password == user.password){
-                return res.status(200).json({ message: "User Login successfully!", codeNumber: 1, userID: user.userid });
+                return res.status(200).json({ message: "User Login successfully!", codeNumber: 1, userID: user.userid, name: username });
             } else {
                 return res.status(401).json({ message: "Invalid username or password.", codeNumber: 0 });
             }
@@ -79,11 +91,11 @@ app.post("/register", (req, res)=>{
 //sending message
 app.post("/chats", (req, res)=>{
 
-    const {sender, receiver, message, files} = req.body;
+    const {sender,message} = req.body;
 
-    const query = "INSERT INTO chats(sender, receiver, message, files) VALUES(?, ?, ?, ?)";
+    const query = "INSERT INTO chats(sender,message) VALUES(?, ?,)";
 
-    con.query(query, [sender, receiver, message, files], (err, result)=>{
+    con.query(query, [sender,message], (err, result)=>{
 
         console.log(result);
 
@@ -96,16 +108,30 @@ app.post("/chats", (req, res)=>{
 
 });
 
-//get message
+//get individual message
 app.get("/chats:id", (req, res)=> {
 
-    const query = "SELECT * FROM chats";
+    const userId = req.params.id;
+    const query = "SELECT * FROM chats WHERE userid = ?";
+
+    con.query(query,[userId], (err, result) =>{
+        if(!err){
+            return res.status(200).json(result);
+        }
+        return res.status(500).json({message: "Server errror."});
+    });
+});
+
+//get all message
+app.get("/messages", (req, res)=> {
+
+    const query = "SELECT userid, message, username FROM chats";
 
     con.query(query, (err, result) =>{
         if(!err){
             return res.status(200).json(result);
         }
-        return res.status(500).json({message: "Server errror."});
+        return res.status(500).json({message: "Server error."});
     });
 });
 
@@ -148,31 +174,26 @@ app.delete("/chats/:id", (req, res) =>{
     });
 });
 
-io.on("connection", (socket) =>{
-
+io.on("connection", (socket) => {
     console.log("connected");
 
-    socket.on("chat", (messageObj)=>{
-        
-        const {userid, message} = messageObj;
+    socket.on("chat", (messageObj) => {
+        const { userid, message, username } = messageObj;
 
-        const query = "INSERT INTO chats(userid, message) VALUES(?,?)"
+        const query = "INSERT INTO chats(userid, message, username) VALUES(?, ?, ?)";
 
-        con.query(query,[userid, message], (err, resulty) => {
-            if(!err){
-                return io.emit("chat", message);
+        con.query(query, [userid, message, username], (err, result) => {
+            if (!err) {
+                io.emit("chat", messageObj);
+            } else {
+                io.emit("chat", err);
             }
-            return io.emit("chat",err);
-        })
+        });
     });
 
-    socket.on("disconnect", ()=>{
+    socket.on("disconnect", () => {
         console.log("disconnected");
-
-
     });
-
-
 });
 
 

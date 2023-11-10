@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en-PH">
+<head>
+	<meta charset="UTF-8">
+	<title>Mongo | Chat Application</title>
+
+	<meta name="author" content="Group Mongo-Mongo">
+	<meta name="keywords" content="Mongo-Mongo, Chat Application">
+	<meta name="description" content="Mongo-Mongo Chat Application">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" type="image/x-icon" href="Images/site-logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+</head>
+<style>
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: Helvetica, Georgia, "Times New Roman";
+	font-size: 16px;
+	overflow-y: hidden;
+}
+
+.main-chat-container {
+	width: 100%;
+	margin: auto;
+	height: 100vh;
+}
+
+.main-chat-container .main-chat-content {
+	width: 100%;
+	margin: auto;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+}
+
+.main-chat-content .left-side-container {
+	width: 30%;
+}
+
+.left-side-container .left-side-content {
+	width: 100%;
+	margin: auto;
+	padding: 18px 18px;
+	background-color: #F2F0F3;
+}
+
+.left-side-content .left-side-header {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.left-side-content .left-side-header img {
+	display: block;
+	border-radius: 50%;
+}
+
+.left-side-content .left-side-header img:hover {
+	cursor: pointer;
+}
+
+.left-side-content .left-side-header span {
+	display: block;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.left-side-content .left-side-header i {
+	display: block;
+	font-size: 18px;
+}
+
+.left-side-content .left-side-header i:hover {
+	cursor: pointer;
+}
+
+.left-side-content .search-area {
+	width: 100%;
+	margin: 35px auto 30px auto;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	position: relative;
+}
+
+.left-side-content .search-area i {
+	display: block;
+	z-index: 1;
+	position: absolute;
+	left: 10px;
+	color: #E0E0E1;
+}
+
+.left-side-content .search-area input[type="search"] {
+	border: 1px solid #E0E0E1;
+	outline: none;
+	padding: 8px 25px 8px 30px;
+	width: 100%;
+	margin: auto;
+	position: absolute;
+	border-radius: 6px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-moz-appearance: none; 
+	-webkit-appearance: none; 
+}
+
+.left-side-content .search-area input[type="search"]:hover,
+.left-side-content .search-area input[type="search"]:focus {
+	border: 1px solid #04A4FF;
+}
+
+.left-side-content .search-area input[type="search"]::placeholder {
+	font-size: 11.5px;
+}
+
+.left-side-content .chat-list-container {
+	width: 100%;
+	margin: auto;
+}
+
+.left-side-content .chat-list-container .chat-list-content {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	margin: auto;
+}
+
+.left-side-content .chat-list-container .chat-profile {
+	margin-bottom: 15px;
+	/*border: 1px solid black;*/
+	display: flex;
+	align-items: center;
+}
+
+.left-side-content .chat-list-container .chat-profile img {
+	display: block;
+	border-radius: 50%;
+	float: left;
+	margin-right: 10px;
+}
+
+.left-side-content .chat-list-container .chat-profile::after {
+	content: "";
+	clear: both;
+	display: table;
+}
+
+.left-side-content .chat-list-container .chat-profile span {
+	display: block;
+	font-size: 14px;
+}
+
+/* NEXT EPISODE | TODO */
+
+.main-chat-content .right-side-container {
+	width: 70%;
+}
+
+.main-chat-content .right-side-content {
+	width: 100%;
+	margin: auto;
+	padding: 18px 18px;
+	background-color: #ffffff;
+	display: flex;
+	flex-direction: column;
+}
+
+.right-side-content .right-side-header {
+	width: 100%;
+	margin: auto;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 18px 18px 0;
+}
+
+.right-side-header .left-chat-info {
+	display: flex;
+	align-items: center;
+}
+
+.right-side-header .left-chat-info img {
+	display: block;
+	float: left;
+	margin-right: 8px;
+	border-radius: 50%;
+}
+
+.right-side-header .left-chat-info img:hover {
+	cursor: pointer;
+}
+
+.right-side-header .left-chat-info::after {
+	content: "";
+	clear: both;
+	display: table;
+}
+
+.right-side-header .left-chat-info span {
+	display: block;
+	font-size: 14px;
+}
+
+.right-side-header .right-chat-info {
+	display: flex;
+	align-items: center;
+}
+
+.right-side-header .right-chat-info i {
+	display: block;
+	float: left;
+	font-size: 16px;
+	color: #04A4FF;
+}
+
+.right-side-header .right-chat-info i:hover {
+	cursor: pointer;
+}
+
+.right-side-header .right-chat-info i.call, 
+i.video-call {
+	margin-right: 18px;
+}
+
+.right-side-content .chat-messages {
+	height: 77.5vh;
+	overflow-y: scroll;
+}
+
+.right-side-content .chat-messages .recipient {
+	margin-bottom: 20px;
+}
+
+.right-side-content .chat-messages .recipient img {
+	display: block;
+	border-radius: 50%;
+	float: left;
+	margin-right: 8px;
+}
+
+.right-side-content .chat-messages .recipient::after {
+	content: "";
+	clear: both;
+	display: table;
+}
+
+.chat-messages .recipient-content {
+	display: flex;
+	align-items: flex-end;
+}
+
+.recipient-content .recipients-message p {
+	font-size: 12px;
+}
+
+.right-side-content .chat-control-container {
+	width: 100%;
+	margin: auto;
+}
+
+.chat-control-container .chat-control-content {
+	padding: 15px 15px;
+}
+
+.chat-control-container .chat-control-content i {
+	display: block;
+	float: left;
+	color: #04A4FF;
+}
+
+.chat-control-container .chat-control-content::after {
+	content: "";
+	clear: both;
+	display: table;
+}
+
+.chat-control-container .chat-control-content {
+	display: flex;
+	align-items: center;
+}
+
+.chat-control-container .chat-control-content i.more {
+	color: #04A4FF;
+	margin-right: 8px;
+}
+
+.chat-control-container .chat-control-content i.more:hover {
+	cursor: pointer;
+}
+
+.chat-control-content input[type="text"] {
+	border: 1px solid #E0E0E1;
+	outline: none;
+	border-radius: 30px;
+	padding: 10px 15px;
+	width: 90%;
+	background-color: #E0E0E1;
+	margin-right: 8px;
+}
+
+.chat-control-content input[type="text"]:hover,
+.chat-control-content input[type="text"]:focus {
+	border: 1px solid #04A4FF;
+}
+
+.chat-control-content input[type="text"]::placeholder {
+	font-size: 12px;
+}
+
+.chat-control-content .chat-options {
+	width: 10%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+</style>
+	<body>
+		<div class="main-chat-container">
+			<div class="main-chat-content">
+				<div class="left-side-container">
+					<div class="left-side-content">
+						<div class="left-side-header">
+							<img src="Images/user-profile.png" alt="User Profile" width="35" height="35">
+							<span>Mongo-Mongo</span>
+							<i class="fa-solid fa-pen-to-square"></i>
+						</div>
+						<div class="search-area">
+							<i class="fa-solid fa-magnifying-glass"></i>
+							<input type="search" id="search-list" name="search-list" placeholder="Search">
+						</div>
+						<div class="chat-list-container">
+							<div class="chat-list-content">
+								<div class="chat-profile">
+									<img src="Images/user-profile.png" alt="User Profile" width="45" height="45">
+									<span>Alice Chuang</span>
+								</div>
+								<div class="chat-profile">
+									<img src="Images/user-profile2.png" alt="User Profile" width="45" height="45">
+									<span>Cinderella</span>
+								</div>
+								<div class="chat-profile">
+									<img src="Images/user-profile3.png" alt="User Profile" width="45" height="45">
+									<span>King Spartan</span>
+								</div>
+								<div class="chat-profile">
+									<img src="Images/user-profile4.png" alt="User Profile" width="45" height="45">
+									<span>Jake the Skate</span>
+								</div>
+								<div class="chat-profile">
+									<img src="Images/user-profile.png" alt="User Profile" width="45" height="45">
+									<span>Alice Chuang</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="right-side-container">
+					<div class="right-side-content">
+						<div class="right-side-header">
+							<div class="left-chat-info">
+								<img src="Images/user-profile.png" alt="User Profile" width="35" height="35">
+								<span>Alice Chuang</span>
+							</div>
+							<div class="right-chat-info">
+								<i class="fa-solid fa-phone call"></i>
+                                <i class="fa-solid fa-video video-call"></i>
+                                <i class="fa-solid fa-ellipsis-vertical ellipses"></i>
+							</div>
+						</div>
+						<div class="chat-messages">
+							<div class="recipient">
+								<div class="recipient-content">
+									<img src="Images/user-profile.png" alt="User Profile" width="35" height="35">
+									<div class="recipients-message">
+										<p>Hello!</p>
+										<p>How are you ?</p>
+										<p>Are you vacant tonight ?</p>
+									</div>
+								</div>
+							</div>
+							<div class="recipient">
+								<div class="recipient-content">
+									<img src="Images/user-profile.png" alt="User Profile" width="35" height="35">
+									<div class="recipients-message">
+										<p>Let's date ?:)</p>
+										<p>Let's go to the nearest restaurant :)</p>
+										<p>I just want to know you well</p>
+									</div>
+								</div>
+							</div>
+							<div class="recipient">
+								<div class="recipient-content">
+									<img src="Images/user-profile.png" alt="User Profile" width="35" height="35">
+									<div class="recipients-message">
+										<p>I'm bored</p>
+										<p>I want something to talk to</p>
+									</div>
+								</div>
+							</div>
+							<div class="recipient">
+								<div class="recipient-content">
+									<img src="Images/user-profile.png" alt="User Profile" width="35" height="35">
+									<div class="recipients-message">
+										<p>Hey, are you busy ?</p>
+										<p>How are you ?</p>
+										<p>Are you vacant tonight ?</p>
+									</div>
+								</div>
+							</div>
+							<div class="recipient">
+								<div class="recipient-content">
+									<img src="Images/user-profile.png" alt="User Profile" width="35" height="35">
+									<div class="recipients-message">
+										<p>Hello!</p>
+										<p>How are you ?</p>
+										<p>Are you vacant tonight ?</p>
+									</div>
+								</div>
+							</div>
+							<div class="recipient">
+								<div class="recipient-content">
+									<img src="Images/user-profile.png" alt="User Profile" width="35" height="35">
+									<div class="recipients-message">
+										<p>Hello!</p>
+										<p>How are you ?</p>
+										<p>Are you vacant tonight ?</p>
+									</div>
+								</div>
+							</div>
+							<div class="recipient">
+								<div class="recipient-content">
+									<img src="Images/user-profile.png" alt="User Profile" width="35" height="35">
+									<div class="recipients-message">
+										<p>Let's date ?:)</p>
+										<p>Let's go to the nearest restaurant :)</p>
+										<p>I just want to know you well</p>
+									</div>
+								</div>
+							</div>
+							<div class="recipient">
+								<div class="recipient-content">
+									<img src="Images/user-profile.png" alt="User Profile" width="35" height="35">
+									<div class="recipients-message">
+										<p>I'm bored</p>
+										<p>I want something to talk to</p>
+									</div>
+								</div>
+							</div>
+							<div class="recipient">
+								<div class="recipient-content">
+									<img src="Images/user-profile.png" alt="User Profile" width="35" height="35">
+									<div class="recipients-message">
+										<p>Hey, are you busy ?</p>
+										<p>How are you ?</p>
+										<p>Are you vacant tonight ?</p>
+									</div>
+								</div>
+							</div>
+							<div class="recipient">
+								<div class="recipient-content">
+									<img src="Images/user-profile.png" alt="User Profile" width="35" height="35">
+									<div class="recipients-message">
+										<p>Hello!</p>
+										<p>How are you ?</p>
+										<p>Are you vacant tonight ?</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="chat-control-container">
+							<div class="chat-control-content">
+								<i class="fa-solid fa-plus more"></i>
+								<input type="text" id="message" name="message" placeholder="Type a message...">
+								<div class="chat-options">
+									<i class="fa-solid fa-file"></i>
+	                                <i class="fa-solid fa-smile"></i>
+	                                <i class="fa-solid fa-ellipsis-vertical"></i>
+								</div>
+							</div>
+						</div>	
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</body>
+</html>

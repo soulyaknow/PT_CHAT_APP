@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 09, 2023 at 04:06 AM
+-- Generation Time: Nov 10, 2023 at 11:59 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -30,11 +30,17 @@ SET time_zone = "+00:00";
 CREATE TABLE `chats` (
   `s_id` int(11) NOT NULL,
   `userid` int(11) NOT NULL,
-  `sender` varchar(255) NOT NULL,
-  `receiver` varchar(255) NOT NULL,
   `message` varchar(255) NOT NULL,
-  `files` varchar(255) NOT NULL
+  `username` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `chats`
+--
+
+INSERT INTO `chats` (`s_id`, `userid`, `message`, `username`) VALUES
+(22, 1, 'hi dub', 'ranel'),
+(23, 3, 'hello dub', 'icey');
 
 -- --------------------------------------------------------
 
@@ -56,7 +62,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`userid`, `username`, `password`, `firstname`, `lastname`, `gender`) VALUES
-(1, 'ranel', 'testing123', 'lenar', 'onailos', 'male');
+(1, 'ranel', 'testing123', 'lenar', 'onailos', 'male'),
+(3, 'icey', '1234', 'icey', 'bejoc', 'Female');
 
 --
 -- Indexes for dumped tables
@@ -82,13 +89,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `chats`
 --
 ALTER TABLE `chats`
-  MODIFY `s_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `s_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -147,6 +147,7 @@
             .then((response) => response.json())
             .then((data) => {
                 localStorage.setItem('userid',data.userID);
+                localStorage.setItem('name',data.name);
                 if (data.codeNumber === 1) {
                     alert("User Login successfully!");
                     window.location = "/landing";

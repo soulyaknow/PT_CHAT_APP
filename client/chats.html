@@ -176,7 +176,7 @@
         outline: none;
     }
 
-    input[type="submit"] {
+    #messageSent {
         padding: 8px;
         background-color: #2081FB;
         color: white;
@@ -195,6 +195,7 @@
         padding: 5px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         z-index: 2;
+        display: none;
     }
 
     .emoji-picker img {
@@ -219,7 +220,6 @@
 </style>
 </head>
 <body>
-    <input type="color">
     <div class="nav-container">
         <nav id="main-nav">
             <div class="main-nav-container">
@@ -233,7 +233,7 @@
                         <a href="/about">About</a>
                         <a href="/chats">Message</a>
                         <!-- <button type="button" id="logout" name="logout"></button> -->
-                        <a href="/" id="logout">Logout</a>
+                        <a href="/" id="logout" onclick="logout()">Logout</a>
                     </div>
                 </nav>
             </div>
@@ -269,7 +269,7 @@
                 <i class="fa-solid fa-face-angry" onclick="insertEmoji('😡')" style="color: red"></i>
             </div>
             <input type="text" id="message-input" placeholder="Type your message...">
-            <i class="fa-regular fa-paper-plane" onclick="sendMessage()"></i>
+            <i class="fa-regular fa-paper-plane" onclick="sendMessage()" id="messageSent"></i>
         </div>
     </div>
 
@@ -286,7 +286,7 @@
             socket.emit('chat', { userid: id, message: messageText, username : name });
 
             var chatMessages = document.getElementById("chat-messages");
-
+            
             var userMessage = document.createElement("div");
             userMessage.className = "message user-message";
             userMessage.innerHTML = '<p>' + messageText + '</p><i class="fas fa-user-circle"></i><h6>' + name + '</h6>';
@@ -344,8 +344,11 @@
 
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
-});
-    
+    });
+
+    function logout(){
+        localStorage.clear();
+    }
     fetchAndDisplayMessages();
     </script>
 </body>

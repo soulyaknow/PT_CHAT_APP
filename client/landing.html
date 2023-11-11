@@ -183,7 +183,7 @@
                         <a href="#">About</a>
                         <a href="/chats">Message</a>
                         <!-- <button type="button" id="logout" name="logout"></button> -->
-                        <a href="/" id="logout">Logout</a>
+                        <a href="/" id="logout" onclick="logout()">Logout</a>
                     </div>
                 </nav>
             </div>
@@ -203,6 +203,10 @@
             </div>
         </section>
     </div><!-- End of section-container --> 
-
+    <script>
+    function logout(){
+        localStorage.clear();
+    }
+    </script>
 </body>
 </html>

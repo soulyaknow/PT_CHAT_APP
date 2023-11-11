@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mugo Mugo Chat App</title>
+    <link rel="stylesheet" href="/Font-awesome/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
     <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
 <style>
@@ -109,7 +110,7 @@
     }
 
     .chat-header {
-        background-color: #4CAF50;
+        background-color: #2081FB;
         color: white;
         padding: 10px;
         text-align: center;
@@ -177,7 +178,7 @@
 
     input[type="submit"] {
         padding: 8px;
-        background-color: #4CAF50;
+        background-color: #2081FB;
         color: white;
         border: none;
         border-radius: 5px;
@@ -185,9 +186,9 @@
     }
 
     .emoji-picker {
-        display: none;
+        display: inline;
         position: absolute;
-        top: 200px;
+        top: 430px;
         background-color: #fff;
         border: 1px solid #ccc;
         border-radius: 5px;
@@ -212,9 +213,13 @@
     input[type="file"] {
         display: none;
     }
+    .items{
+        margin-right: 8px;
+    }
 </style>
 </head>
 <body>
+    <input type="color">
     <div class="nav-container">
         <nav id="main-nav">
             <div class="main-nav-container">
@@ -247,20 +252,24 @@
             <!-- Add more messages here -->
         </div>
         <div class="input-box">
-            <label for="file-input" class="file-icon">
-                <i class="fas fa-file"></i>
-            </label>
-            <input type="file" id="file-input" style="display: none;">
-            <span class="emoji-icon" onclick="toggleEmojiPicker()">
-                <i class="far fa-smile"></i>
-            </span>
+            <div class="items">
+                <label for="file-input" class="file-icon">
+                    <i class="fas fa-file"></i>
+                </label>
+                <input type="file" id="file-input" style="display: none;">
+                <span class="emoji-icon" onclick="toggleEmojiPicker()">
+                    <i class="far fa-smile"></i>
+                </span>
+            </div>
             <div class="emoji-picker" id="emojiPicker">
-                <img src="https://emojipedia.org/favicon/apple/64/1f604.png" alt="😄" onclick="insertEmoji('😄')">
-                <img src="https://emojipedia.org/favicon/apple/64/1f60d.png" alt="😍" onclick="insertEmoji('😍')">
-                <img src="https://emojipedia.org/favicon/apple/64/1f609.png" alt="😉" onclick="insertEmoji('😉')">
+                <i class="fa-solid fa-heart" onclick="insertEmoji('❤️')" style="color: red"></i>
+                <i class="fa-solid fa-face-smile" onclick="insertEmoji('😄')" style="color:orange"></i>
+                <i class="fa-solid fa-face-surprise" onclick="insertEmoji('😲')" style="color: orange"></i>
+                <i class="fa-solid fa-face-sad-tear" onclick="insertEmoji('😢')" style="color: orange"></i>
+                <i class="fa-solid fa-face-angry" onclick="insertEmoji('😡')" style="color: red"></i>
             </div>
             <input type="text" id="message-input" placeholder="Type your message...">
-            <input type="submit" value="Send" onclick="sendMessage()">
+            <i class="fa-regular fa-paper-plane" onclick="sendMessage()"></i>
         </div>
     </div>
 

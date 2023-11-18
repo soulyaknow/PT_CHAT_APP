@@ -309,9 +309,16 @@
             const chatMessages = document.getElementById('chat-messages');
 
             data.forEach((messageObj) => {
+
+                const currentUserID = parseInt(localStorage.getItem('userid'));
                 const messageElement = document.createElement('div');
-                messageElement.className = 'message';
-                messageElement.innerHTML = `<p><i class="fas fa-user-circle"></i> ${messageObj.username}: ${messageObj.message}</p>`;
+                if(messageObj.userid === currentUserID){
+                    messageElement.className = "message user-message";
+                    messageElement.innerHTML = `<p>${messageObj.message}</p><i class="fas fa-user-circle"></i><h6>'${messageObj.username}</h6>`;
+                }else{              
+                    messageElement.className = 'message other-message';
+                    messageElement.innerHTML = `<p><i class="fas fa-user-circle"></i> ${messageObj.username}: ${messageObj.message}</p>`;
+                }
                 chatMessages.appendChild(messageElement);
             });
 

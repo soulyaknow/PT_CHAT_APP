@@ -197,7 +197,7 @@ io.on("connection", (socket) => {
 });
 
 
-server.listen(4000,'192.168.1.15' || 'localhost', () =>{
+server.listen(4000, () =>{
     console.log("Server listening on PORT 4000");
 });
 

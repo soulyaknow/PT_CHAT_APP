@@ -17,13 +17,14 @@
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
-        background-image: linear-gradient(to right, #B721FF, #45A8FD);
+        /* background-image: linear-gradient(to right, #B721FF, #45A8FD); */
+        background-color: #E6E6E6;
     }
 
     .nav-container {
         width: 100%;
         margin: auto;
-        background-color: #4E59CE;
+        background-color: #3099FB;
     }
 
     .nav-container #main-nav {
@@ -103,14 +104,15 @@
 
     .chat-box {
         max-width: 600px;
-        margin: 20px auto;
+        margin: 70px auto 0 auto;
         border: 1px solid #ccc;
         border-radius: 8px;
         overflow: hidden;
+        box-shadow: 3px 5px 8px 1px #0A0A0A;    
     }
 
     .chat-header {
-        background-color: #2081FB;
+        background-color: #3099FB;
         color: white;
         padding: 10px;
         text-align: center;
@@ -217,6 +219,131 @@
     .items{
         margin-right: 8px;
     }
+
+    .footer-container {
+        background-color: #ffffff;
+        color: #000000;
+        width: 100%;
+        margin: 100px auto 0 auto;
+        font-family: Helvetica, Georgia, "Times New Roman";
+        font-size: 16px;
+    }
+
+    .footer-container a {
+        text-decoration: none;
+        color: initial;
+    }
+
+    .footer-container #main-footer {
+        width: 100%;
+        margin: auto;
+    }
+
+    #main-footer .footer-content {
+        padding: 8px 15px;
+    }
+
+    #main-footer .footer-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .footer-content .left-aside {
+        padding: 8px 15px;
+        margin-right: 15px;
+    }
+
+    .footer-content .left-aside .logo img {
+        width: 15%;
+        height: 15%;
+        margin: 15px auto 15px auto;
+        display: block;
+    }
+
+    .footer-content .left-aside .logo p {
+        width: 100%;
+        margin: 8PX auto 12px auto;
+        text-align: center;
+        font-size: 15px;
+    }
+
+    .footer-content .left-aside .soc-meds {
+        text-align: center;
+    }
+
+    .footer-content .left-aside .soc-meds i {
+        margin-right: 5px;
+        font-size: 22px;
+        color: #2081FB;
+    }
+
+    .footer-content .left-aside,
+    .footer-content .quick-link,
+    .footer-content .services,
+    .footer-content .help-support {
+        width: 25%;
+        margin: auto;
+        /* background-color: #E6E6E6; */
+    }
+
+    .footer-content .quick-link h2,
+    .footer-content .services h2,
+    .footer-content .help-support h2 {
+        margin-bottom: 20px;
+        color: gray;
+        font-size: 18px;
+    }
+
+    .footer-content .quick-link a,
+    .footer-content .left-aside a,
+    .footer-content .services a,
+    .footer-content .help-support a {
+        display: block;
+        font-size: 15px;
+        color: gray;
+        margin-bottom: 12px;
+    }
+
+    .footer-content .quick-link a:hover,
+    .footer-content .left-aside a:hover,
+    .footer-content .services a:hover,
+    .footer-content .help-support a:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+    hr.thematic {
+        background-color: #000000;
+        margin-bottom: 15px;
+    }
+
+    .bottom {
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    .bottom p {
+        font-size: 13.5px;
+        color: gray;
+    }
+
+    @media screen and (max-width: 768px) {
+
+        .footer-content .left-aside .logo img {
+            width: 15%;
+            height: 15px;
+            margin: auto;
+            display: block;
+        }    
+        
+        .footer-content .left-aside {
+            width: 100%;
+            margin: auto;
+            
+        }
+
+    }/* End of media quries */
 </style>
 </head>
 <body>
@@ -271,6 +398,53 @@
             <input type="text" id="message-input" placeholder="Type your message...">
             <i class="fa-regular fa-paper-plane" onclick="sendMessage()" id="messageSent"></i>
         </div>
+    </div>
+
+    <div class="footer-container">
+        <footer id="main-footer">
+            <div class="footer-content">
+                <div class="left-aside">
+                    <div class="logo">
+                        <img src="/Images/mongo-logo.png" alt="Mongo-Mongo Logo" width="35" height="35">
+                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Similique modi ipsa cum, 
+                            tempore ad inventore laboriosam aut, maxime itaque sequi sunt error 
+                            id distinctio perspiciatis nemo illo possimus. Totam, asperiores.</p>
+                    </div><!-- End of logo -->
+                    <div class="soc-meds">
+                        <i class='fab fa-linkedin'></i>
+                        <i class='fab fa-twitter-square'></i>
+                        <i class='fab fa-facebook'></i>
+                    </div><!-- End of soc-meds -->
+                </div><!-- End of class left-aside -->
+                <div class="quick-link">
+                    <h2>Quick Links</h2>
+                    <a href="#">Home</a>
+                    <a href="#">About</a>
+                    <a href="#">Services</a>
+                    <a href="#">Testimonial</a>
+                    <a href="#">Contact</a>
+                </div>
+                <div class="services">
+                    <h2>Services</h2>
+                    <a href="#">Web Design</a>
+                    <a href="#">Web Development</a>
+                    <a href="#">Seo Optimization</a>
+                    <a href="#">Blog Writing</a>
+                </div>
+                <div class="help-support">
+                    <h2>Help & Support</h2>
+                    <a href="#">Support Center</a>
+                    <a href="#">Live Chat</a>
+                    <a href="#">FAQ</a>
+                    <a href="#">Terms & Conditions</a>
+                </div>
+            </div>
+            <hr class="thematic">
+            <div class="bottom">
+                <p>Design and Developed by CPC Students</p>
+                <p>All Rights Reserved 2023 - 2024</p>
+            </div>
+        </footer>
     </div>
 
     <script>
